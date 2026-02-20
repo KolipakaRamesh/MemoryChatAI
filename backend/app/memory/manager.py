@@ -44,7 +44,7 @@ class MemoryManager:
         # Retrieve all memories (in production, use asyncio.gather for parallel execution)
         short_term_memory = await self.short_term.retrieve(conversation_id, db)
         long_term_memory = await self.long_term.retrieve(user_id, db)
-        semantic_memory = await self.semantic.retrieve(user_id, query_embedding)
+        semantic_memory = await self.semantic.retrieve(user_id=user_id, query_embedding=query_embedding)
         feedback_memory = await self.feedback.retrieve(user_id, db, query)
         
         memory_snapshot = {

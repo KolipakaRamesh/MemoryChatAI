@@ -51,7 +51,7 @@ class Settings(BaseSettings):
     # Memory Configuration
     max_short_term_messages: int = 20
     max_semantic_results: int = 5
-    semantic_similarity_threshold: float = 0.7
+    semantic_similarity_threshold: float = 0.3
     max_feedback_corrections: int = 3
     
     # Observability

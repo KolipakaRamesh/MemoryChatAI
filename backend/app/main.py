@@ -3,14 +3,20 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 import logging
 
+from app.observability.logger import setup_logging
+# Setup logging as early as possible
+setup_logging()
+
 from app.config import settings
 from app.api.v1 import chat, memory, admin, auth, observability
 from app.db.session import engine, Base
-from app.observability.logger import setup_logging
 
-# Setup logging
-setup_logging()
 logger = logging.getLogger(__name__)
+
+# Create directories
+import os
+os.makedirs("data/chroma", exist_ok=True)
+os.makedirs("logs", exist_ok=True)
 
 # Create database tables
 Base.metadata.create_all(bind=engine)
@@ -78,5 +84,5 @@ if __name__ == "__main__":
         "app.main:app",
         host="0.0.0.0",
         port=8000,
-        reload=True if settings.environment == "development" else False
+        reload=False
     )
